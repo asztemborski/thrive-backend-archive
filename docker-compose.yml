@@ -1,0 +1,29 @@
+﻿services:
+  db:
+    image: postgres:16
+    container_name: postgres-database
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=zxcASDqwe!@#
+      - POSTGRES_DB=master
+    volumes:
+      - db:/var/lib/postgresql/data
+  fleet-backend:
+    image: fleet.bootstrapper
+    build:
+      context: .
+      dockerfile: src/Bootstrapper/Fleet.Bootstrapper/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5160
+    ports:
+      - "5160:5160"
+    env_file:
+      - .env
+    depends_on:
+      - db
+volumes:
+  db:
+    driver: local

@@ -1,0 +1,28 @@
+{
+  "identity": {
+    "module": {
+      "name": "Identity",
+      "enabled": true
+    },
+    "JwtOptions": {
+      "TokenExpirationInMinutes": 60,
+      "RefreshTokenExpirationInDays": 7,
+      "ValidateIssuerSigningKey": true,
+      "ValidateIssuer": false,
+      "ValidateAudience": false,
+      "ValidateLifetime": false
+    },
+    "IdentityOptions": {
+      "Password": {
+        "RequiredLength": 6,
+        "RequireDigit": false,
+        "RequireLowercase": false,
+        "RequireNonAlphanumeric": false,
+        "RequireUppercase": false
+      },
+      "User": {
+        "RequireUniqueEmail": true
+      }
+    }
+  }
+}
