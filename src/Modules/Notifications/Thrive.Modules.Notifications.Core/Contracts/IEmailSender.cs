@@ -4,5 +4,5 @@ namespace Thrive.Modules.Notifications.Core.Contracts;
 
 internal interface IEmailSender
 {
-    Task SendAsync(string receiver, EmailTemplate emailTemplate, CancellationToken cancellationToken);
+    Task SendAsync(string receiver, EmailTemplate emailTemplate, CancellationToken cancellationToken = default);
 }

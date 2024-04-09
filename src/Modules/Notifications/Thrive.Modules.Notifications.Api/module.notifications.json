@@ -7,7 +7,7 @@
     "MailingOptions": {
       "Host": "email-smtp.us-east-1.amazonaws.com",
       "Port": 587,
-      "DisplayName": "Syncro"
+      "DisplayName": "Thrive"
     }
   }
 }

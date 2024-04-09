@@ -34,19 +34,19 @@ internal sealed class SignUpCommandHandler : IRequestHandler<SignUpCommand>
             throw new InvalidEmailProviderException(provider);
         }
 
-        if (!await _userRepository.IsEmailUniqueAsync(request.Email))
+        if (!await _userRepository.IsEmailUniqueAsync(request.Email, cancellationToken))
         {
             throw new EmailAlreadyUsedException(request.Email);
         }
 
-        if (!await _userRepository.IsUsernameUniqueAsync(request.Username))
+        if (!await _userRepository.IsUsernameUniqueAsync(request.Username, cancellationToken))
         {
             throw new UsernameAlreadyUsedException(request.Username);
         }
 
         var hashedPassword = _valueHasher.Hash(request.Password);
         var user = new IdentityUser(request.Email, request.Username, hashedPassword);
-        var createdUser = await _userRepository.CreateAsync(user);
+        var createdUser = await _userRepository.CreateAsync(user, cancellationToken);
 
         await _publisher.Publish(new IdentityUserCreatedEvent(createdUser.Email.Address,
             createdUser.Username), cancellationToken);

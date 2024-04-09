@@ -19,11 +19,18 @@ internal sealed class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailC
 
     public async Task Handle(ConfirmEmailCommand request, CancellationToken cancellationToken)
     {
-        var token = await _confirmTokenRepository.GetByTokenAsync(request.ConfirmationToken) ??
-                    throw new InvalidEmailConfirmationToken();
+        var token = await _confirmTokenRepository.GetByTokenAsync(request.ConfirmationToken, 
+                        cancellationToken) ?? throw new InvalidEmailConfirmationToken();
 
-        var user = await _userRepository.GetByEmailAsync(token.Email) ?? throw new InvalidEmailConfirmationToken();
+        if (token.IsExpired)
+        {
+            throw new InvalidEmailConfirmationToken();
+        }
+
+        var user = await _userRepository.GetByEmailAsync(token.Email, cancellationToken) 
+                   ?? throw new InvalidEmailConfirmationToken();
+        
         user.Email.Confirm();
-        await _userRepository.UpdateAsync(user);
+        await _userRepository.UpdateAsync(cancellationToken);
     }
 }

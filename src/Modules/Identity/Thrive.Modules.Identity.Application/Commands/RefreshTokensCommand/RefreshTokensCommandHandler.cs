@@ -16,7 +16,7 @@ internal sealed class RefreshTokensCommandHandler : IRequestHandler<RefreshToken
 
     public async Task Handle(RefreshTokensCommand request, CancellationToken cancellationToken)
     {
-        var tokens = await _tokensProvider.RefreshAsync(request.RefreshToken);
+        var tokens = await _tokensProvider.RefreshAsync(request.RefreshToken, cancellationToken);
         _tokensRequestStorage.SetTokens(request.RefreshToken, tokens);
     }
 }

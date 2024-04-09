@@ -24,7 +24,7 @@ internal sealed class SignInCommandHandler : IRequestHandler<SignInCommand>
 
     public async Task Handle(SignInCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByEmailAsync(request.Email)
+        var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken)
                    ?? throw new InvalidCredentialsException();
 
         if (!user.Email.IsConfirmed)
@@ -42,7 +42,7 @@ internal sealed class SignInCommandHandler : IRequestHandler<SignInCommand>
             throw new InvalidCredentialsException();
         }
 
-        var tokens = await _tokensProvider.GenerateAccessAsync(user);
+        var tokens = await _tokensProvider.GenerateAccessAsync(user, cancellationToken);
         _tokensRequestStorage.SetTokens(request.Email, tokens);
     }
 }

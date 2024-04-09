@@ -11,7 +11,6 @@ using Thrive.Modules.Identity.Application.Options;
 using Thrive.Modules.Identity.Domain.Entities;
 using Thrive.Modules.Identity.Domain.Repositories;
 using Thrive.Modules.Identity.Infrastructure.Options;
-using static System.Guid;
 
 namespace Thrive.Modules.Identity.Infrastructure.Services;
 
@@ -33,7 +32,8 @@ internal sealed class TokensProvider : ITokensProvider
         _emailOptions = emailOptions.Value;
     }
 
-    public async Task<Tokens> GenerateAccessAsync(IdentityUser identityUser)
+    public async Task<Tokens> GenerateAccessAsync(IdentityUser identityUser,
+        CancellationToken cancellationToken)
     {
         var claims = new List<Claim>
         {
@@ -54,17 +54,16 @@ internal sealed class TokensProvider : ITokensProvider
             CreatedAt = DateTime.UtcNow
         });
 
-        await _userRepository.UpdateAsync(identityUser);
+        await _userRepository.UpdateAsync(cancellationToken);
         return new Tokens(accessToken, refreshToken, refreshTokenExpirationDate);
     }
-
-
-    public async Task<Tokens> RefreshAsync(string refreshToken)
+    
+    public async Task<Tokens> RefreshAsync(string refreshToken, CancellationToken cancellationToken)
     {
         var principal = new JwtSecurityTokenHandler().ValidateToken(refreshToken,
             _jwtBearerOptions.TokenValidationParameters, out var validatedToken);
 
-        var isValidGuid = TryParse(principal.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+        var isValidGuid = Guid.TryParse(principal.FindFirst(ClaimTypes.NameIdentifier)?.Value,
             out var userId);
 
         if (!isValidGuid || validatedToken is null)
@@ -72,7 +71,8 @@ internal sealed class TokensProvider : ITokensProvider
             throw new UnauthorizedException();
         }
 
-        var user = await _userRepository.GetWithRefreshTokensAsync(userId) ?? throw new UnauthorizedException();
+        var user = await _userRepository.GetWithRefreshTokensAsync(userId, cancellationToken) 
+                   ?? throw new UnauthorizedException();
         var associatedRefreshToken = user.RefreshTokens.FirstOrDefault(r => r.Token == refreshToken);
 
         if (associatedRefreshToken is null || associatedRefreshToken.IsExpired)
@@ -81,7 +81,7 @@ internal sealed class TokensProvider : ITokensProvider
         }
 
         user.RevokeRefreshToken(associatedRefreshToken);
-        return await GenerateAccessAsync(user);
+        return await GenerateAccessAsync(user, cancellationToken);
     }
 
     public EmailConfirmationToken GenerateEmailConfirmationTokenAsync(string email)

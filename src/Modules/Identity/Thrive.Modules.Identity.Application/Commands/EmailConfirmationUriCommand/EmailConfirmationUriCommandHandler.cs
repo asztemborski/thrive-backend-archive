@@ -25,7 +25,7 @@ internal sealed class EmailConfirmationUriCommandHandler : IRequestHandler<Email
     public async Task Handle(EmailConfirmationUriCommand request, CancellationToken cancellationToken)
     {
         var token = _tokensProvider.GenerateEmailConfirmationTokenAsync(request.Email);
-        await _emailConfirmTokenRepository.AddOrUpdateAsync(token);
+        await _emailConfirmTokenRepository.AddOrUpdateAsync(token, cancellationToken);
 
         var confirmationUri = string.Concat(_emailOptions.EmailConfirmationBaseUri, token.Token);
         _confirmationUriRequestStorage.SetUri(request.Email, confirmationUri);

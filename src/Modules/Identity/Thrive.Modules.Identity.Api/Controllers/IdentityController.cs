@@ -10,13 +10,9 @@ namespace Thrive.Modules.Identity.Api.Controllers;
 public sealed class IdentityController : BaseController
 {
     private readonly ISender _sender;
-
-
-    public IdentityController(ISender sender)
-    {
-        _sender = sender;
-    }
-
+    
+    public IdentityController(ISender sender) =>_sender = sender;
+    
     [HttpPost("sign-up")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

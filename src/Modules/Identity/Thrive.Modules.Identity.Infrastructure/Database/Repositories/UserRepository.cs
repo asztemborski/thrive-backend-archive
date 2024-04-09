@@ -10,36 +10,39 @@ internal class UserRepository : IUserRepository
 
     public UserRepository(IdentityContext context) => _context = context;
 
-    public async Task<IdentityUser?> GetByEmailAsync(string email)
+    public async Task<IdentityUser?> GetByEmailAsync(string email, CancellationToken cancellationToken)
     {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Email.Address.Value == email);
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email.Address.Value == email, 
+            cancellationToken);
     }
 
-    public async Task<IdentityUser?> GetWithRefreshTokensAsync(Guid id)
+    public async Task<IdentityUser?> GetWithRefreshTokensAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _context.Users.Include(u => u.RefreshTokens)
-            .FirstOrDefaultAsync(u => u.Id == id);
+            .FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
     }
 
-    public async Task<IdentityUser> CreateAsync(IdentityUser identityUser)
+    public async Task<IdentityUser> CreateAsync(IdentityUser identityUser, CancellationToken cancellationToken)
     {
-        var user = await _context.Users.AddAsync(identityUser);
-        await _context.SaveChangesAsync();
+        var user = await _context.Users.AddAsync(identityUser, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
         return user.Entity;
     }
 
-    public async Task UpdateAsync(IdentityUser identityUser)
+    public async Task UpdateAsync(CancellationToken cancellationToken)
     {
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<bool> IsEmailUniqueAsync(string email)
+    public async Task<bool> IsEmailUniqueAsync(string email, CancellationToken cancellationToken)
     {
-        return !await _context.Users.AnyAsync(u => u.Email.Address.Value == email);
+        return !await _context.Users.AnyAsync(u => u.Email.Address.Value == email,
+            cancellationToken);
     }
 
-    public async Task<bool> IsUsernameUniqueAsync(string username)
+    public async Task<bool> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken)
     {
-        return !await _context.Users.AnyAsync(u => u.Username.Value == username);
+        return !await _context.Users.AnyAsync(u => u.Username.Value == username,
+            cancellationToken);
     }
 }

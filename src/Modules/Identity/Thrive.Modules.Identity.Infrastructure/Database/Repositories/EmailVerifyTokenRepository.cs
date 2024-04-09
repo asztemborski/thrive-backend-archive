@@ -10,17 +10,18 @@ internal sealed class EmailConfirmTokenRepository : IEmailConfirmTokenRepository
 
     public EmailConfirmTokenRepository(IdentityContext context) => _context = context;
 
-    public async Task AddOrUpdateAsync(EmailConfirmationToken token)
+    public async Task AddOrUpdateAsync(EmailConfirmationToken token, CancellationToken cancellationToken)
     {
-        var existingToken = await _context.EmailConfirmationTokens.FirstOrDefaultAsync(ct => ct.Email == token.Email)
-                            ?? _context.EmailConfirmationTokens.Add(token).Entity;
+        var existingToken = await _context.EmailConfirmationTokens.FirstOrDefaultAsync(ct => ct.Email == token.Email,
+                                cancellationToken) ?? _context.EmailConfirmationTokens.Add(token).Entity;
 
         existingToken.UpdateToken(token);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<EmailConfirmationToken?> GetByTokenAsync(string token)
+    public async Task<EmailConfirmationToken?> GetByTokenAsync(string token, CancellationToken cancellationToken)
     {
-        return await _context.EmailConfirmationTokens.FirstOrDefaultAsync(t => t.Token == token);
+        return await _context.EmailConfirmationTokens.FirstOrDefaultAsync(t => t.Token == token,
+            cancellationToken);
     }
 }
