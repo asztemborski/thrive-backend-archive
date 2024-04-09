@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Thrive.Modules.Identity.Infrastructure</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.3"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3"/>
+        <ProjectReference Include="..\..\..\Shared\Thrive.Shared.Infrastructure\Thrive.Shared.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Thrive.Modules.Identity.Application\Thrive.Modules.Identity.Application.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Database\Migrations\"/>
+    </ItemGroup>
+
+</Project>

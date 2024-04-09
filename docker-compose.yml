@@ -10,11 +10,11 @@
       - POSTGRES_DB=master
     volumes:
       - db:/var/lib/postgresql/data
-  fleet-backend:
-    image: fleet.bootstrapper
+  thrive-backend:
+    image: thrive.bootstrapper
     build:
       context: .
-      dockerfile: src/Bootstrapper/Fleet.Bootstrapper/Dockerfile
+      dockerfile: src/Bootstrapper/Thrive.Bootstrapper/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5160

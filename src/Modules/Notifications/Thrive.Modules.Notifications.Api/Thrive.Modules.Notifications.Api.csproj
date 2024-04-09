@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Thrive.Modules.Notifications.Api</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Thrive.Modules.Notifications.Core\Thrive.Modules.Notifications.Core.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="module.notifications.json"/>
+        <Content Include="module.notifications.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="module.notifications.development.json"/>
+        <Content Include="module.notifications.development.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+</Project>

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Thrive.Modules.Notifications.Core</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Shared\Thrive.Shared.Abstractions\Thrive.Shared.Abstractions.csproj"/>
+        <ProjectReference Include="..\..\..\Shared\Thrive.Shared.Application\Thrive.Shared.Application.csproj"/>
+        <ProjectReference Include="..\..\..\Shared\Thrive.Shared.Infrastructure\Thrive.Shared.Infrastructure.csproj"/>
+        <ProjectReference Include="..\..\Identity\Thrive.Modules.Identity.Shared\Thrive.Modules.Identity.Shared.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MailKit" Version="4.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Mailing\Templates\**">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+</Project>
