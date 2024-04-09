@@ -2,7 +2,7 @@
 
 public sealed record JwtOptions
 {
-    public string SecretKey { get; init; } = string.Empty;
+    public required string SecretKey { get; init; }
     public int TokenExpirationInMinutes { get; init; }
     public int RefreshTokenExpirationInDays { get; init; }
     public bool ValidateIssuerSigningKey { get; init; }

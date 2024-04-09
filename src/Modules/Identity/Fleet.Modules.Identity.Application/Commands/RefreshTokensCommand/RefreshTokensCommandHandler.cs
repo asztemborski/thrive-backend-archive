@@ -3,11 +3,11 @@ using MediatR;
 
 namespace Fleet.Modules.Identity.Application.Commands.RefreshTokensCommand;
 
-public sealed class RefreshTokensCommandHandler : IRequestHandler<RefreshTokensCommand>
+internal sealed class RefreshTokensCommandHandler : IRequestHandler<RefreshTokensCommand>
 {
     private readonly ITokensProvider _tokensProvider;
     private readonly ITokensRequestStorage _tokensRequestStorage;
-    
+
     public RefreshTokensCommandHandler(ITokensProvider tokensProvider, ITokensRequestStorage tokensRequestStorage)
     {
         _tokensProvider = tokensProvider;

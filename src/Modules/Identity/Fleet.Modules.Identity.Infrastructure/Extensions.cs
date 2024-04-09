@@ -15,9 +15,9 @@ public static class Extensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        services.ConfigureOptions<IdentityOptionsSetup>();
         services.ConfigureOptions<JwtOptionsSetup>();
         services.ConfigureOptions<JwtBearerOptionsSetup>();
+        services.ConfigureOptions<EmailOptionsSetup>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer();
@@ -25,7 +25,9 @@ public static class Extensions
         services.AddPostgres<IdentityContext>();
         services.AddScoped<ITokensProvider, TokensProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IEmailConfirmTokenRepository, EmailConfirmTokenRepository>();
         services.AddScoped<ITokensRequestStorage, TokensRequestStorage>();
+        services.AddScoped<IConfirmationUriRequestStorage, ConfirmationUriRequestStorage>();
         services.AddScoped<IValueHasher, ValueHasher>();
 
         return services;

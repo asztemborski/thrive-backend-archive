@@ -1,3 +1,4 @@
+using System.Reflection;
 using Fleet.Shared.Application;
 using Fleet.Shared.Infrastructure;
 using Fleet.Shared.Infrastructure.Modules;
@@ -10,6 +11,7 @@ var modules = ModuleLoader.LoadModules(assemblies);
 builder.WebHost.ConfigureModules();
 builder.Services.AddSharedApplication(assemblies);
 builder.Services.AddSharedInfrastructure(builder.Configuration, assemblies, modules);
+builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly());
 
 foreach (var module in modules)
 {
@@ -27,6 +29,7 @@ foreach (var module in modules)
 }
 
 app.MapControllers();
+
 
 assemblies.Clear();
 modules.Clear();

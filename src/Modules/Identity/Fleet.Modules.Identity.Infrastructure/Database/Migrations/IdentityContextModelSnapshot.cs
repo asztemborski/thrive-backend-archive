@@ -23,6 +23,23 @@ namespace Fleet.Modules.Identity.Infrastructure.Database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Fleet.Modules.Identity.Domain.Entities.EmailConfirmationToken", b =>
+                {
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("EmailConfirmationTokens", "identity");
+                });
+
             modelBuilder.Entity("Fleet.Modules.Identity.Domain.Entities.IdentityUser", b =>
                 {
                     b.Property<Guid>("Id")

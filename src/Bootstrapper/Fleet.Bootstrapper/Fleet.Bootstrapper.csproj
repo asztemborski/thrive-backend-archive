@@ -5,24 +5,26 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>a4937d4e-b4cb-4c36-ad74-719b8df72f48</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Modules\Identity\Fleet.Modules.Identity.Api\Fleet.Modules.Identity.Api.csproj" />
-      <ProjectReference Include="..\..\Shared\Fleet.Shared.Infrastructure\Fleet.Shared.Infrastructure.csproj" />
+        <ProjectReference Include="..\..\Modules\Identity\Fleet.Modules.Identity.Api\Fleet.Modules.Identity.Api.csproj"/>
+        <ProjectReference Include="..\..\Modules\Notifications\Fleet.Modules.Notifications.Api\Fleet.Modules.Notifications.Api.csproj"/>
+        <ProjectReference Include="..\..\Shared\Fleet.Shared.Infrastructure\Fleet.Shared.Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\..\..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>

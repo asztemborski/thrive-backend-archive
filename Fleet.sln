@@ -33,6 +33,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleet.Modules.Identity.Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleet.Shared.Application", "src\Shared\Fleet.Shared.Application\Fleet.Shared.Application.csproj", "{CBEC8529-D12B-4A49-92B5-E072C4C58ED0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notifications", "{B4FD1C28-FE29-4D07-8ABC-1A6D1926A532}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleet.Modules.Identity.Shared", "src\Modules\Identity\Fleet.Modules.Identity.Shared\Fleet.Modules.Identity.Shared.csproj", "{B461D572-8D0A-4ECF-B51A-DCBE33F3C695}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleet.Modules.Notifications.Core", "src\Modules\Notifications\Fleet.Modules.Notifications.Core\Fleet.Modules.Notifications.Core.csproj", "{3D00D3A3-A9E5-456F-B244-E14B333DC692}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleet.Modules.Notifications.Api", "src\Modules\Notifications\Fleet.Modules.Notifications.Api\Fleet.Modules.Notifications.Api.csproj", "{16B1CAA6-0E51-4034-BE39-48E1F6EA9F22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{C131B5F6-B434-424D-A1E1-DE3D106FA48E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +61,11 @@ Global
 		{7E0A7142-1D2B-4855-B091-571FE4EE98C8} = {436FCFF2-5FF6-467E-A59A-1D5CBBC6E9F6}
 		{A3AA2229-DEBC-49B0-8338-B830B349C3D8} = {436FCFF2-5FF6-467E-A59A-1D5CBBC6E9F6}
 		{CBEC8529-D12B-4A49-92B5-E072C4C58ED0} = {30709B08-BE7E-427A-B3E3-ECD2290DF4F3}
+		{B4FD1C28-FE29-4D07-8ABC-1A6D1926A532} = {302E998B-C2F1-4648-8C36-6F8A125DA35B}
+		{B461D572-8D0A-4ECF-B51A-DCBE33F3C695} = {436FCFF2-5FF6-467E-A59A-1D5CBBC6E9F6}
+		{16B1CAA6-0E51-4034-BE39-48E1F6EA9F22} = {B4FD1C28-FE29-4D07-8ABC-1A6D1926A532}
+		{3D00D3A3-A9E5-456F-B244-E14B333DC692} = {B4FD1C28-FE29-4D07-8ABC-1A6D1926A532}
+		{C131B5F6-B434-424D-A1E1-DE3D106FA48E} = {302E998B-C2F1-4648-8C36-6F8A125DA35B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFE792AB-6893-427D-9961-23A60B96E528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -85,5 +100,17 @@ Global
 		{CBEC8529-D12B-4A49-92B5-E072C4C58ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBEC8529-D12B-4A49-92B5-E072C4C58ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBEC8529-D12B-4A49-92B5-E072C4C58ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B461D572-8D0A-4ECF-B51A-DCBE33F3C695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B461D572-8D0A-4ECF-B51A-DCBE33F3C695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B461D572-8D0A-4ECF-B51A-DCBE33F3C695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B461D572-8D0A-4ECF-B51A-DCBE33F3C695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D00D3A3-A9E5-456F-B244-E14B333DC692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D00D3A3-A9E5-456F-B244-E14B333DC692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D00D3A3-A9E5-456F-B244-E14B333DC692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D00D3A3-A9E5-456F-B244-E14B333DC692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B1CAA6-0E51-4034-BE39-48E1F6EA9F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B1CAA6-0E51-4034-BE39-48E1F6EA9F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B1CAA6-0E51-4034-BE39-48E1F6EA9F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B1CAA6-0E51-4034-BE39-48E1F6EA9F22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

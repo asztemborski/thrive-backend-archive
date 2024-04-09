@@ -8,10 +8,7 @@ internal class UserRepository : IUserRepository
 {
     private readonly IdentityContext _context;
 
-    public UserRepository(IdentityContext context)
-    {
-        _context = context;
-    }
+    public UserRepository(IdentityContext context) => _context = context;
 
     public async Task<IdentityUser?> GetByEmailAsync(string email)
     {
@@ -24,10 +21,11 @@ internal class UserRepository : IUserRepository
             .FirstOrDefaultAsync(u => u.Id == id);
     }
 
-    public async Task CreateAsync(IdentityUser identityUser)
+    public async Task<IdentityUser> CreateAsync(IdentityUser identityUser)
     {
-        await _context.Users.AddAsync(identityUser);
+        var user = await _context.Users.AddAsync(identityUser);
         await _context.SaveChangesAsync();
+        return user.Entity;
     }
 
     public async Task UpdateAsync(IdentityUser identityUser)

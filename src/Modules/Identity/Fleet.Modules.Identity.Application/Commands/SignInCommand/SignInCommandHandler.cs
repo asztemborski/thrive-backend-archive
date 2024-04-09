@@ -1,11 +1,12 @@
-﻿using Fleet.Modules.Identity.Application.Contracts;
+﻿using System.Security.Authentication;
+using Fleet.Modules.Identity.Application.Contracts;
 using Fleet.Modules.Identity.Application.Exceptions;
 using Fleet.Modules.Identity.Domain.Repositories;
 using MediatR;
 
 namespace Fleet.Modules.Identity.Application.Commands.SignInCommand;
 
-public sealed class SignInCommandHandler : IRequestHandler<SignInCommand>
+internal sealed class SignInCommandHandler : IRequestHandler<SignInCommand>
 {
     private readonly IUserRepository _userRepository;
     private readonly ITokensProvider _tokensProvider;
@@ -31,12 +32,17 @@ public sealed class SignInCommandHandler : IRequestHandler<SignInCommand>
             throw new InvalidCredentialsException();
         }
 
+        if (!user.IsActive)
+        {
+            throw new InvalidCredentialException();
+        }
+
         if (!_valueHasher.Verify(user.Password, request.Password))
         {
             throw new InvalidCredentialsException();
         }
 
-        var tokens = await _tokensProvider.GenerateAsync(user);
+        var tokens = await _tokensProvider.GenerateAccessAsync(user);
         _tokensRequestStorage.SetTokens(request.Email, tokens);
     }
 }

@@ -7,18 +7,18 @@ namespace Fleet.Shared.Application;
 
 public static class Extensions
 {
-    public static IServiceCollection AddSharedApplication(this IServiceCollection services, 
+    public static IServiceCollection AddSharedApplication(this IServiceCollection services,
         IList<Assembly> assemblies)
     {
         ValidatorOptions.Global.LanguageManager.Enabled = false;
         services.AddValidatorsFromAssemblies(assemblies);
-        
+
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssemblies(assemblies.ToArray());
             config.AddOpenBehavior(typeof(ValidationBehaviour<,>));
         });
-        
+
         return services;
     }
 }

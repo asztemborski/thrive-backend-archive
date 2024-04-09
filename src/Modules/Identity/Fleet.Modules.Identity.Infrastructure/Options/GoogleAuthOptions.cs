@@ -2,6 +2,6 @@
 
 internal sealed record GoogleAuthOptions
 {
-    public string ClientId { get; init; } = string.Empty;
-    public string ClientSecret { get; init; } = string.Empty;
+    public required string ClientId { get; init; }
+    public required string ClientSecret { get; init; }
 }

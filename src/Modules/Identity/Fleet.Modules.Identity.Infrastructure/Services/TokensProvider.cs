@@ -4,12 +4,14 @@ using System.Text;
 using Fleet.Modules.Identity.Application.Contracts;
 using Fleet.Modules.Identity.Application.DTOs;
 using Fleet.Modules.Identity.Application.Exceptions;
+using Fleet.Modules.Identity.Application.Options;
 using Fleet.Modules.Identity.Domain.Entities;
 using Fleet.Modules.Identity.Domain.Repositories;
 using Fleet.Modules.Identity.Infrastructure.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using static System.Guid;
 
 namespace Fleet.Modules.Identity.Infrastructure.Services;
 
@@ -18,18 +20,20 @@ internal sealed class TokensProvider : ITokensProvider
     private readonly IUserRepository _userRepository;
     private readonly JwtOptions _jwtOptions;
     private readonly JwtBearerOptions _jwtBearerOptions;
+    private readonly EmailOptions _emailOptions;
 
     private const int MinutesInDay = 24 * 60;
 
     public TokensProvider(IUserRepository userRepository, IOptions<JwtOptions> jwtSettings,
-        IOptions<JwtBearerOptions> jwtBearerOptions)
+        IOptions<JwtBearerOptions> jwtBearerOptions, IOptions<EmailOptions> emailOptions)
     {
         _userRepository = userRepository;
         _jwtBearerOptions = jwtBearerOptions.Value;
         _jwtOptions = jwtSettings.Value;
+        _emailOptions = emailOptions.Value;
     }
 
-    public async Task<Tokens> GenerateAsync(IdentityUser identityUser)
+    public async Task<Tokens> GenerateAccessAsync(IdentityUser identityUser)
     {
         var claims = new List<Claim>
         {
@@ -60,10 +64,13 @@ internal sealed class TokensProvider : ITokensProvider
         var principal = new JwtSecurityTokenHandler().ValidateToken(refreshToken,
             _jwtBearerOptions.TokenValidationParameters, out var validatedToken);
 
-        var isValidGuid = Guid.TryParse(principal.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+        var isValidGuid = TryParse(principal.FindFirst(ClaimTypes.NameIdentifier)?.Value,
             out var userId);
 
-        if (!isValidGuid || validatedToken is null) throw new UnauthorizedException();
+        if (!isValidGuid || validatedToken is null)
+        {
+            throw new UnauthorizedException();
+        }
 
         var user = await _userRepository.GetWithRefreshTokensAsync(userId) ?? throw new UnauthorizedException();
         var associatedRefreshToken = user.RefreshTokens.FirstOrDefault(r => r.Token == refreshToken);
@@ -74,9 +81,17 @@ internal sealed class TokensProvider : ITokensProvider
         }
 
         user.RevokeRefreshToken(associatedRefreshToken);
-        return await GenerateAsync(user);
+        return await GenerateAccessAsync(user);
     }
 
+    public EmailConfirmationToken GenerateEmailConfirmationTokenAsync(string email)
+    {
+        var token = GenerateEncryptedToken([], _emailOptions.EmailConfirmationTokenExpirationTime);
+        var expiresAt = DateTime.UtcNow.AddMinutes(_emailOptions.EmailConfirmationTokenExpirationTime);
+
+        return new EmailConfirmationToken(email, token, expiresAt);
+    }
+    
     private string GenerateEncryptedToken(IEnumerable<Claim> claims, int expirationValueInMinutes)
     {
         var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey));

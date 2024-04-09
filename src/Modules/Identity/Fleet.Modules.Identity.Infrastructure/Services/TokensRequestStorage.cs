@@ -10,7 +10,7 @@ internal sealed class TokensRequestStorage : ITokensRequestStorage
 
     public TokensRequestStorage(IRequestStorage requestStorage) => _requestStorage = requestStorage;
 
-    public Tokens? RetrieveTokens(string key) => _requestStorage.Get<Tokens>(key);
+    public Tokens? RetrieveTokens(string key) => _requestStorage.Get<Tokens>($"tokens:{key}");
 
-    public void SetTokens(string key, Tokens tokens) => _requestStorage.Set(key, tokens);
+    public void SetTokens(string key, Tokens tokens) => _requestStorage.Set($"tokens:${key}", tokens);
 }

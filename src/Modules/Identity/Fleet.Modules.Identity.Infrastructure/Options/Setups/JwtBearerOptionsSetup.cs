@@ -5,12 +5,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Fleet.Modules.Identity.Infrastructure.Options.Setups;
 
-public sealed class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
+internal sealed class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
 {
     private readonly JwtOptions _jwtOptions;
 
     public JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions) => _jwtOptions = jwtOptions.Value;
-    
+
     public void Configure(JwtBearerOptions options)
     {
         options.TokenValidationParameters = new TokenValidationParameters

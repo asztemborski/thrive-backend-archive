@@ -7,7 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Fleet.Shared.Application\Fleet.Shared.Application.csproj" />
-      <ProjectReference Include="..\Fleet.Modules.Identity.Domain\Fleet.Modules.Identity.Domain.csproj" />
+        <ProjectReference Include="..\..\..\Shared\Fleet.Shared.Application\Fleet.Shared.Application.csproj"/>
+        <ProjectReference Include="..\Fleet.Modules.Identity.Domain\Fleet.Modules.Identity.Domain.csproj"/>
+        <ProjectReference Include="..\Fleet.Modules.Identity.Shared\Fleet.Modules.Identity.Shared.csproj"/>
     </ItemGroup>
 </Project>

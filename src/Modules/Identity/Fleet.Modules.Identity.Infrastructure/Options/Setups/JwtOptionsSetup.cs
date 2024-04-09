@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace Fleet.Modules.Identity.Infrastructure.Options.Setups;
 
-public sealed class JwtOptionsSetup : IConfigureOptions<JwtOptions>
+internal sealed class JwtOptionsSetup : IConfigureOptions<JwtOptions>
 {
     private readonly IConfiguration _configuration;
 

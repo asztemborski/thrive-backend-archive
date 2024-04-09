@@ -1,0 +1,13 @@
+﻿{
+  "notifications": {
+    "module": {
+      "name": "Notifications",
+      "enabled": true
+    },
+    "MailingOptions": {
+      "Host": "email-smtp.us-east-1.amazonaws.com",
+      "Port": 587,
+      "DisplayName": "Syncro"
+    }
+  }
+}

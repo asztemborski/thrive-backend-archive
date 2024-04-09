@@ -5,6 +5,7 @@ namespace Fleet.Modules.Identity.Application.Contracts;
 
 public interface ITokensProvider
 {
-    Task<Tokens> GenerateAsync(IdentityUser identityUser);
+    Task<Tokens> GenerateAccessAsync(IdentityUser identityUser);
     Task<Tokens> RefreshAsync(string refreshToken);
+    EmailConfirmationToken GenerateEmailConfirmationTokenAsync(string email);
 }

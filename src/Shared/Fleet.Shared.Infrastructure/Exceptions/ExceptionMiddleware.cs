@@ -46,10 +46,7 @@ public sealed class ExceptionMiddleware
             }
         }
 
-        if (_environment.IsDevelopment())
-        {
-            response.Source = exception.TargetSite?.DeclaringType?.Namespace ?? string.Empty;
-        }
+        response.Source = exception.TargetSite?.DeclaringType?.Namespace ?? string.Empty;
 
         if (response.StatusCode is HttpStatusCode.InternalServerError && !_environment.IsDevelopment())
         {

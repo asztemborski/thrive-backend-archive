@@ -8,6 +8,7 @@ internal sealed class IdentityContext(DbContextOptions<IdentityContext> options)
 {
     public DbSet<IdentityUser> Users => Set<IdentityUser>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+    public DbSet<EmailConfirmationToken> EmailConfirmationTokens => Set<EmailConfirmationToken>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -15,5 +16,6 @@ internal sealed class IdentityContext(DbContextOptions<IdentityContext> options)
         builder.HasDefaultSchema("identity");
         new IdentityUserConfiguration().Configure(builder.Entity<IdentityUser>());
         new RefreshTokenConfiguration().Configure(builder.Entity<RefreshToken>());
+        new EmailConfirmationTokenConfiguration().Configure(builder.Entity<EmailConfirmationToken>());
     }
 }
