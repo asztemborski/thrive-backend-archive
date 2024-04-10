@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
@@ -28,34 +29,34 @@ public sealed class ExceptionMiddleware
             await HandleExceptionAsync(context, exception);
         }
     }
-
+    
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        var response = new ExceptionResponse()
+        var response = new ExceptionResponse
         {
             Title = exception.Message,
+            Source = exception.TargetSite?.DeclaringType?.Namespace ?? string.Empty
         };
 
         if (exception is BaseException baseException)
         {
+            response.Code = baseException.Code ?? response.Code;
             response.StatusCode = baseException.StatusCode;
-
-            foreach (var message in baseException.Errors)
-            {
-                response.Errors.Add(message);
-            }
-
-            response.Code = baseException.Code;
+            response.Errors.AddRange(baseException.Errors);
         }
-
-        response.Source = exception.TargetSite?.DeclaringType?.Namespace ?? string.Empty;
-
-        if (response.StatusCode is HttpStatusCode.InternalServerError && !_environment.IsDevelopment())
+        else
         {
-            response.Title = "Internal server error";
+            response.Title = "Internal server error.";
+            response.StatusCode = HttpStatusCode.InternalServerError;
         }
 
+        if (!_environment.IsDevelopment())
+        {
+            response.Source = string.Empty;
+        }
+        
         context.Response.StatusCode = (int)response.StatusCode;
-        await context.Response.WriteAsJsonAsync(response);
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsync(JsonSerializer.Serialize(response));
     }
 }

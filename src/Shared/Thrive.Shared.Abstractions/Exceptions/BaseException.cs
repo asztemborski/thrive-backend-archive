@@ -2,28 +2,36 @@
 
 namespace Thrive.Shared.Abstractions.Exceptions;
 
-public class BaseException(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
-    : Exception(message)
+public class BaseException : Exception
 {
-    protected BaseException(string message, IEnumerable<string> errors,
-        HttpStatusCode statusCode = HttpStatusCode.BadRequest) : this(message, statusCode)
+    public BaseException(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+        : base(message)
     {
-        Errors.AddRange(errors.Select(err => new Error(string.Empty, string.Empty, err)));
+        StatusCode = statusCode;
     }
 
-    protected BaseException(string message, IEnumerable<Error> errors,
-        HttpStatusCode statusCode = HttpStatusCode.BadRequest) : this(message, statusCode)
+    public BaseException(string message, IEnumerable<string> errors, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+        : this(message, statusCode)
+    {
+        foreach (var err in errors)
+        {
+            Errors.Add(new Error(string.Empty, string.Empty, err));
+        }
+    }
+
+    public BaseException(string message, IEnumerable<Error> errors, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+        : this(message, statusCode)
     {
         Errors.AddRange(errors);
     }
 
-    protected BaseException(string message, string code,
-        HttpStatusCode statusCode = HttpStatusCode.BadRequest) : this(message, statusCode)
+    public BaseException(string message, string code, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+        : this(message, statusCode)
     {
         Code = code;
     }
 
     public List<Error> Errors { get; } = new();
-    public HttpStatusCode StatusCode { get; } = statusCode;
+    public HttpStatusCode StatusCode { get; }
     public string? Code { get; init; }
 }
