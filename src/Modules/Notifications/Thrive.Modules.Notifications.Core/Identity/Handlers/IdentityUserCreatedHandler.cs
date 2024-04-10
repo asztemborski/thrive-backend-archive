@@ -2,7 +2,6 @@
 using Thrive.Modules.Identity.Shared;
 using Thrive.Modules.Identity.Shared.Events;
 using Thrive.Modules.Notifications.Core.Contracts;
-using Thrive.Modules.Notifications.Core.Exceptions;
 using Thrive.Modules.Notifications.Core.Mailing.TemplateBuilders;
 
 namespace Thrive.Modules.Notifications.Core.Identity.Handlers;
@@ -22,12 +21,7 @@ internal sealed class IdentityUserCreatedHandler : INotificationHandler<Identity
     {
         var confirmationUri =
             await _identityModuleApi.GenerateEmailConfirmationUri(notification.Email, cancellationToken);
-
-        if (confirmationUri is null)
-        {
-            throw new EmptyEmailConfirmationUri();
-        }
-
+        
         var template = new EmailConfirmationTemplateBuilder(notification.Username, confirmationUri).Build();
         await _emailSender.SendAsync(notification.Email, template, cancellationToken);
     }

@@ -2,4 +2,4 @@
 
 namespace Thrive.Modules.Identity.Application.Commands.EmailConfirmationUriCommand;
 
-public sealed record EmailConfirmationUriCommand(string Email) : IRequest;
+public sealed record EmailConfirmationUriCommand(string Email) : IRequest<string>;

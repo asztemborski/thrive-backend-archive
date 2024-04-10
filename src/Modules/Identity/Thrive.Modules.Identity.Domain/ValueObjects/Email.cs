@@ -16,16 +16,20 @@ public sealed record Email
     {
         if (string.IsNullOrEmpty(value))
         {
-            throw new InvalidEmailException();
+            throw DomainExceptions.InvalidEmailException();
         }
 
         if (value.Length is < 5 or > 100)
         {
-            throw new InvalidEmailException();
+            throw DomainExceptions.InvalidEmailException();
         }
 
         value = value.ToLowerInvariant();
 
+        if (!Regex.IsMatch(value))
+        {
+            throw DomainExceptions.InvalidEmailException();
+        }
 
         Value = value;
     }

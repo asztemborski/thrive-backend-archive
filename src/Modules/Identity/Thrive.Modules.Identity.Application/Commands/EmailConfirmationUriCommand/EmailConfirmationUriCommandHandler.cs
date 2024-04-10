@@ -5,29 +5,25 @@ using Thrive.Modules.Identity.Application.Options;
 
 namespace Thrive.Modules.Identity.Application.Commands.EmailConfirmationUriCommand;
 
-internal sealed class EmailConfirmationUriCommandHandler : IRequestHandler<EmailConfirmationUriCommand>
+internal sealed class EmailConfirmationUriCommandHandler : IRequestHandler<EmailConfirmationUriCommand, string>
 {
     private readonly ITokensProvider _tokensProvider;
     private readonly IEmailConfirmTokenRepository _emailConfirmTokenRepository;
     private readonly EmailOptions _emailOptions;
-    private readonly IConfirmationUriRequestStorage _confirmationUriRequestStorage;
 
     public EmailConfirmationUriCommandHandler(ITokensProvider tokensProvider,
-        IEmailConfirmTokenRepository emailConfirmTokenRepository, IOptions<EmailOptions> emailOptions,
-        IConfirmationUriRequestStorage confirmationUriRequestStorage)
+        IEmailConfirmTokenRepository emailConfirmTokenRepository, IOptions<EmailOptions> emailOptions)
     {
         _tokensProvider = tokensProvider;
         _emailConfirmTokenRepository = emailConfirmTokenRepository;
-        _confirmationUriRequestStorage = confirmationUriRequestStorage;
         _emailOptions = emailOptions.Value;
     }
 
-    public async Task Handle(EmailConfirmationUriCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(EmailConfirmationUriCommand request, CancellationToken cancellationToken)
     {
         var token = _tokensProvider.GenerateEmailConfirmationTokenAsync(request.Email);
         await _emailConfirmTokenRepository.AddOrUpdateAsync(token, cancellationToken);
 
-        var confirmationUri = string.Concat(_emailOptions.EmailConfirmationBaseUri, token.Token);
-        _confirmationUriRequestStorage.SetUri(request.Email, confirmationUri);
+        return string.Concat(_emailOptions.EmailConfirmationBaseUri, token.Token);
     }
 }

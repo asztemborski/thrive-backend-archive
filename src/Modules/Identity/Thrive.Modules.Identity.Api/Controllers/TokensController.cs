@@ -12,23 +12,17 @@ namespace Thrive.Modules.Identity.Api.Controllers;
 public sealed class TokensController : BaseController
 {
     private readonly ISender _sender;
-    private readonly ITokensRequestStorage _tokensRequestStorage;
 
-    public TokensController(ISender sender, ITokensRequestStorage tokensRequestStorage)
-    {
-        _sender = sender;
-        _tokensRequestStorage = tokensRequestStorage;
-    }
-
+    public TokensController(ISender sender) => _sender = sender;
+    
     [HttpPost("authenticate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation(Summary = "Sign in a user.", Description = "Sign in a user and retrieve auth tokens.")]
-    public async Task<Tokens?> SignIn(SignInCommand request, CancellationToken cancellationToken)
+    public async Task<Tokens> SignIn(SignInCommand request, CancellationToken cancellationToken)
     {
-        await _sender.Send(request, cancellationToken);
-        return _tokensRequestStorage.RetrieveTokens(request.Email);
+       return await _sender.Send(request, cancellationToken);
     }
 
     [HttpPost("refresh")]
@@ -36,9 +30,8 @@ public sealed class TokensController : BaseController
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerOperation(Summary = "Refresh user token.", Description = "Refresh user's auth tokens.")]
-    public async Task<Tokens?> RefreshTokens(RefreshTokensCommand request, CancellationToken cancellationToken)
+    public async Task<Tokens> RefreshTokens(RefreshTokensCommand request, CancellationToken cancellationToken)
     {
-        await _sender.Send(request, cancellationToken);
-        return _tokensRequestStorage.RetrieveTokens(request.RefreshToken);
+        return await _sender.Send(request, cancellationToken);
     }
 }

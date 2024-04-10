@@ -6,10 +6,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Thrive.Modules.Identity.Application.Contracts;
 using Thrive.Modules.Identity.Application.DTOs;
-using Thrive.Modules.Identity.Application.Exceptions;
 using Thrive.Modules.Identity.Application.Options;
 using Thrive.Modules.Identity.Domain.Entities;
 using Thrive.Modules.Identity.Domain.Repositories;
+using Thrive.Modules.Identity.Infrastructure.Exceptions;
 using Thrive.Modules.Identity.Infrastructure.Options;
 
 namespace Thrive.Modules.Identity.Infrastructure.Services;
@@ -68,16 +68,16 @@ internal sealed class TokensProvider : ITokensProvider
 
         if (!isValidGuid || validatedToken is null)
         {
-            throw new UnauthorizedException();
+            throw InfrastructureExceptions.UnauthorizedException();
         }
 
         var user = await _userRepository.GetWithRefreshTokensAsync(userId, cancellationToken) 
-                   ?? throw new UnauthorizedException();
+                   ?? throw InfrastructureExceptions.UnauthorizedException();
         var associatedRefreshToken = user.RefreshTokens.FirstOrDefault(r => r.Token == refreshToken);
 
         if (associatedRefreshToken is null || associatedRefreshToken.IsExpired)
         {
-            throw new UnauthorizedException();
+            throw InfrastructureExceptions.UnauthorizedException();
         }
 
         user.RevokeRefreshToken(associatedRefreshToken);

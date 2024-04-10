@@ -27,7 +27,7 @@ public sealed class IdentityUser : AggregateRoot<Guid>
     {
         if (value == IsActive)
         {
-            throw IsActive ? new UserActiveException() : new UserInactiveException();
+            throw IsActive ? DomainExceptions.UserActiveException() : DomainExceptions.UserInactiveException();
         }
 
         IsActive = value;

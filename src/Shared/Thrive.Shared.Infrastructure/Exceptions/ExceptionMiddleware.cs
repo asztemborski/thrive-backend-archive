@@ -44,6 +44,8 @@ public sealed class ExceptionMiddleware
             {
                 response.Errors.Add(message);
             }
+
+            response.Code = baseException.Code;
         }
 
         response.Source = exception.TargetSite?.DeclaringType?.Namespace ?? string.Empty;

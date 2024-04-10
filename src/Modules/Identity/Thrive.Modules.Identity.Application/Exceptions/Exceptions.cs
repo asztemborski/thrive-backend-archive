@@ -2,18 +2,20 @@
 
 namespace Thrive.Modules.Identity.Application.Exceptions;
 
-internal sealed class EmailAlreadyUsedException(string email)
-    : BadRequestException($"Email {email} is already in use.");
+internal static class ApplicationExceptions
+{
+    public static BaseException EmailAlreadyUsedException(string email)
+         => new BadRequestException($"Email {email} is already in use.");
 
-internal class UsernameAlreadyUsedException(string username)
-    : BadRequestException($"Username {username} is already in use");
+    public static BaseException UsernameAlreadyUsedException(string username) 
+        => new BadRequestException($"Username {username} is already in use");
+    
+    public static BaseException InvalidEmailProviderException(string emailProvider)
+        => new BadRequestException($"{emailProvider} is not valid email provider.");
 
-internal sealed class InvalidCredentialsException() : BadRequestException("Invalid credentials.");
+    public static BaseException InvalidEmailConfirmationToken() =>
+        new BadRequestException("Email confirmation token is invalid");
 
-public sealed class UnauthorizedException()
-    : Thrive.Shared.Abstractions.Exceptions.UnauthorizedException("Unauthorized.");
-
-internal sealed class InvalidEmailProviderException(string emailProvider)
-    : BadRequestException($"{emailProvider} is not valid email provider.");
-
-internal sealed class InvalidEmailConfirmationToken() : BadRequestException("Email confirmation token is invalid");
+    public static BaseException InvalidCredentialsException() =>
+        new UnauthorizedException("Invalid credentials.");
+}

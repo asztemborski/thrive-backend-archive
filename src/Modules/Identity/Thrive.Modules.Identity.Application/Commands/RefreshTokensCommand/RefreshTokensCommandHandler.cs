@@ -1,22 +1,20 @@
 ﻿using MediatR;
 using Thrive.Modules.Identity.Application.Contracts;
+using Thrive.Modules.Identity.Application.DTOs;
 
 namespace Thrive.Modules.Identity.Application.Commands.RefreshTokensCommand;
 
-internal sealed class RefreshTokensCommandHandler : IRequestHandler<RefreshTokensCommand>
+internal sealed class RefreshTokensCommandHandler : IRequestHandler<RefreshTokensCommand, Tokens>
 {
     private readonly ITokensProvider _tokensProvider;
-    private readonly ITokensRequestStorage _tokensRequestStorage;
 
-    public RefreshTokensCommandHandler(ITokensProvider tokensProvider, ITokensRequestStorage tokensRequestStorage)
+    public RefreshTokensCommandHandler(ITokensProvider tokensProvider)
     {
         _tokensProvider = tokensProvider;
-        _tokensRequestStorage = tokensRequestStorage;
     }
 
-    public async Task Handle(RefreshTokensCommand request, CancellationToken cancellationToken)
+    public async Task<Tokens> Handle(RefreshTokensCommand request, CancellationToken cancellationToken)
     {
-        var tokens = await _tokensProvider.RefreshAsync(request.RefreshToken, cancellationToken);
-        _tokensRequestStorage.SetTokens(request.RefreshToken, tokens);
+        return await _tokensProvider.RefreshAsync(request.RefreshToken, cancellationToken);
     }
 }

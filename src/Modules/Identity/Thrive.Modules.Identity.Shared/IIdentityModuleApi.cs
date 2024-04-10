@@ -2,5 +2,5 @@
 
 public interface IIdentityModuleApi
 {
-    Task<string?> GenerateEmailConfirmationUri(string email, CancellationToken cancellationToken = default);
+    Task<string> GenerateEmailConfirmationUri(string email, CancellationToken cancellationToken = default);
 }

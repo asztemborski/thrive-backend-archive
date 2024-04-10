@@ -26,8 +26,6 @@ public static class Extensions
         services.AddScoped<ITokensProvider, TokensProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IEmailConfirmTokenRepository, EmailConfirmTokenRepository>();
-        services.AddScoped<ITokensRequestStorage, TokensRequestStorage>();
-        services.AddScoped<IConfirmationUriRequestStorage, ConfirmationUriRequestStorage>();
         services.AddScoped<IValueHasher, ValueHasher>();
 
         return services;
