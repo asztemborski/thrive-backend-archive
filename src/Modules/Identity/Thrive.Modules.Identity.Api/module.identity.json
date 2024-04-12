@@ -14,7 +14,7 @@
     },
     "EmailOptions": {
       "EmailConfirmationTokenExpirationTime": 15,
-      "EmailConfirmationBaseUri": "localhost:3000/auth/confirm-email/",
+      "EmailConfirmationBaseUri": "localhost:3000/en/auth/confirm-email/",
       "BannedEmailProviders": [
         "0-mail.com",
         "027168.com",

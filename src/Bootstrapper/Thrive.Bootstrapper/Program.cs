@@ -18,8 +18,6 @@ foreach (var module in modules)
     module.Add(builder.Services);
 }
 
-builder.Services.AddControllers();
-
 var app = builder.Build();
 app.UseSharedInfrastructure();
 
@@ -27,9 +25,6 @@ foreach (var module in modules)
 {
     module.Use(app);
 }
-
-app.MapControllers();
-
 
 assemblies.Clear();
 modules.Clear();

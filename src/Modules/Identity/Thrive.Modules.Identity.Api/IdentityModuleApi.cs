@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Thrive.Modules.Identity.Application.Commands.EmailConfirmationUriCommand;
-using Thrive.Modules.Identity.Application.Contracts;
 using Thrive.Modules.Identity.Shared;
 
 namespace Thrive.Modules.Identity.Api;

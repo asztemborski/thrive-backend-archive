@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,11 +55,26 @@ public static class Extensions
         services.AddMemoryCache();
         services.AddScoped<IRequestStorage, RequestStorage>();
 
+        services.AddCors(options => options.AddPolicy("ThriveCorsPolicy", builder =>
+        {
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+            }
+        }));
+        
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        });
+        
         return services;
     }
 
-    public static IApplicationBuilder UseSharedInfrastructure(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseSharedInfrastructure(this WebApplication builder)
     {
+        builder.UseCors("ThriveCorsPolicy");
+        builder.MapControllers();
         builder.UseMiddleware<ExceptionMiddleware>();
         builder.UseSwagger();
         builder.UseSwaggerUI();
@@ -68,7 +84,7 @@ public static class Extensions
             reDoc.SpecUrl("/swagger/v1/swagger.json");
             reDoc.DocumentTitle = "Thrive API";
         });
-
+        
         return builder;
     }
 
