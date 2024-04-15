@@ -1,6 +1,6 @@
 ﻿using Thrive.Modules.Identity.Domain.Entities;
 
-namespace Thrive.Modules.Identity.Application.Contracts;
+namespace Thrive.Modules.Identity.Domain.Repositories;
 
 public interface IEmailConfirmTokenRepository
 {

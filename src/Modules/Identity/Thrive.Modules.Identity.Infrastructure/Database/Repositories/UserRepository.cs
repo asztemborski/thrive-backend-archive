@@ -34,15 +34,16 @@ internal class UserRepository : IUserRepository
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<bool> IsEmailUniqueAsync(string email, CancellationToken cancellationToken)
+    public async Task<(bool isEmailUnique, bool isUsernameUnique)> IsUnique(string email, string username, 
+        CancellationToken cancellationToken)
     {
-        return !await _context.Users.AnyAsync(u => u.Email.Address.Value == email,
-            cancellationToken);
-    }
-
-    public async Task<bool> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken)
-    {
-        return !await _context.Users.AnyAsync(u => u.Username.Value == username,
-            cancellationToken);
+        var user = await _context.Users.Select(u => new
+            {
+                Email = u.Email.Address.Value, 
+                Username =  u.Username.Value
+            })
+            .FirstOrDefaultAsync(u => u.Email == email || u.Username == username, cancellationToken);
+        
+        return user is null ? (true, true) : (user.Email != email, user.Username != username);
     }
 }

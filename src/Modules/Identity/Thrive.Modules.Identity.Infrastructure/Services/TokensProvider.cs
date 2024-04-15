@@ -68,16 +68,16 @@ internal sealed class TokensProvider : ITokensProvider
 
         if (!isValidGuid || validatedToken is null)
         {
-            throw InfrastructureExceptions.UnauthorizedException();
+            throw new UnauthorizedException();
         }
 
         var user = await _userRepository.GetWithRefreshTokensAsync(userId, cancellationToken) 
-                   ?? throw InfrastructureExceptions.UnauthorizedException();
+                   ?? throw new UnauthorizedException();
         var associatedRefreshToken = user.RefreshTokens.FirstOrDefault(r => r.Token == refreshToken);
 
         if (associatedRefreshToken is null || associatedRefreshToken.IsExpired)
         {
-            throw InfrastructureExceptions.UnauthorizedException();
+            throw new UnauthorizedException();
         }
 
         user.RevokeRefreshToken(associatedRefreshToken);

@@ -10,6 +10,7 @@ public static class Extensions
     public static IServiceCollection AddSharedApplication(this IServiceCollection services,
         IList<Assembly> assemblies)
     {
+        ValidatorOptions.Global.LanguageManager.Enabled = false;
         services.AddValidatorsFromAssemblies(assemblies);
 
         services.AddMediatR(config =>

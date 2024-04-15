@@ -2,14 +2,22 @@
 
 namespace Thrive.Modules.Identity.Domain.Exceptions;
 
-internal static class DomainExceptions
-{
-    public static BaseException EmailAlreadyConfirmedException() => new("Email is already confirmed.", "Identity.EmailConfirmed");
-    public static BaseException InvalidEmailException() => new("Email address is not valid.", "Identity.InvalidEmail");
-    public static BaseException InvalidUsernameException() => new("Username is not valid.", "Identity.InvalidUsername");
-    public static BaseException SameEmailException() => 
-        new("Cannot update email to the current account email address.", "Identity.SameEmails");
+internal sealed class EmailAlreadyConfirmedException()
+    : BaseException("Email is already confirmed.", "Identity.EmailConfirmed");
 
-    public static BaseException UserActiveException() => new("User is active.", "Identity.UserActive");
-    public static BaseException UserInactiveException() => new("User is inactive.", "Identity.Inactive");
-}
+internal sealed class InvalidEmailException()
+    : BaseException("Email address is not valid.", "Identity.InvalidEmail");
+
+internal sealed class InvalidUsernameException()
+    : BaseException("Username is not valid.", "Identity.InvalidUsername");
+
+internal sealed class CannotUpdateEmailToCurrentEmailException()
+    : BaseException("Cannot update email to the current account email address.", "Identity.SameEmails");
+
+internal sealed class UserActiveException()
+    : BaseException("User is active.", "Identity.UserActive");
+
+internal sealed class UserInactiveException()
+    : BaseException("User is inactive.", "Identity.Inactive");
+
+

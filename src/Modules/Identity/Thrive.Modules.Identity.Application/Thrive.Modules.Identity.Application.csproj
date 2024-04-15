@@ -12,4 +12,10 @@
         <ProjectReference Include="..\Thrive.Modules.Identity.Domain\Thrive.Modules.Identity.Domain.csproj"/>
         <ProjectReference Include="..\Thrive.Modules.Identity.Shared\Thrive.Modules.Identity.Shared.csproj"/>
     </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>Thrive.Identity.Application.UnitTests</_Parameter1> 
+        </AssemblyAttribute>
+    </ItemGroup>
 </Project>

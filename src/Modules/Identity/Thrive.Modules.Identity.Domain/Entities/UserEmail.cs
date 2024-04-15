@@ -21,7 +21,7 @@ public sealed class UserEmail
     {
         if (Address == newAddress)
         {
-            throw DomainExceptions.SameEmailException();
+            throw new CannotUpdateEmailToCurrentEmailException();
         }
 
         Address = newAddress;
@@ -31,7 +31,7 @@ public sealed class UserEmail
     {
         if (IsConfirmed)
         {
-            throw DomainExceptions.EmailAlreadyConfirmedException();
+            throw new EmailAlreadyConfirmedException();
         }
 
         IsConfirmed = true;

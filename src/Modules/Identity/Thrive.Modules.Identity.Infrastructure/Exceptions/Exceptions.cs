@@ -1,8 +1,5 @@
-﻿using Thrive.Shared.Abstractions.Exceptions;
+﻿namespace Thrive.Modules.Identity.Infrastructure.Exceptions;
 
-namespace Thrive.Modules.Identity.Infrastructure.Exceptions;
-
-internal static class InfrastructureExceptions
-{
-    public static BaseException UnauthorizedException() => new UnauthorizedException("Unauthorized.", "Identity.Unauthorized");
-}
+internal sealed class UnauthorizedException() 
+    : Thrive.Shared.Abstractions.Exceptions.UnauthorizedException("Unauthorized.", "Identity.Unauthorized");
+    

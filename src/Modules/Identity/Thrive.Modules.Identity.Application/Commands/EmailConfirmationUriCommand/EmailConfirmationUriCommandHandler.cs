@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Thrive.Modules.Identity.Application.Contracts;
 using Thrive.Modules.Identity.Application.Options;
+using Thrive.Modules.Identity.Domain.Repositories;
 
 namespace Thrive.Modules.Identity.Application.Commands.EmailConfirmationUriCommand;
 

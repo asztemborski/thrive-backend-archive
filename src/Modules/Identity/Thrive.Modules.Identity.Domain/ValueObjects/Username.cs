@@ -10,12 +10,12 @@ public sealed record Username
     {
         if (string.IsNullOrEmpty(value))
         {
-            throw DomainExceptions.InvalidUsernameException();
+            throw new InvalidUsernameException();
         }
 
         if (value.Length is < 1 or > 100)
         {
-            throw DomainExceptions.InvalidUsernameException();
+            throw new InvalidUsernameException();
         }
 
         Value = value;

@@ -31,17 +31,20 @@ internal sealed class SignUpCommandHandler : IRequestHandler<SignUpCommand>
 
         if (_emailOptions.BannedEmailProviders.Any(x => provider.Contains(x)))
         {
-            throw ApplicationExceptions.InvalidEmailProviderException(provider);
+            throw new InvalidEmailProviderException(provider);
         }
 
-        if (!await _userRepository.IsEmailUniqueAsync(request.Email, cancellationToken))
+        var (isEmailUnique, isUsernameUnique) =
+            await _userRepository.IsUnique(request.Email, request.Username, cancellationToken);
+
+        if (isEmailUnique is false)
         {
-            throw ApplicationExceptions.EmailAlreadyUsedException(request.Email);
+            throw new EmailAlreadyUsedException(request.Email);
         }
 
-        if (!await _userRepository.IsUsernameUniqueAsync(request.Username, cancellationToken))
+        if (isUsernameUnique is false)
         {
-            throw ApplicationExceptions.UsernameAlreadyUsedException(request.Username);
+            throw new UsernameAlreadyUsedException(request.Username);
         }
         
         var hashedPassword = _valueHasher.Hash(request.Password);

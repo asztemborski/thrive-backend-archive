@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Thrive.Modules.Identity.Application.Contracts;
 using Thrive.Modules.Identity.Domain.Entities;
+using Thrive.Modules.Identity.Domain.Repositories;
 
 namespace Thrive.Modules.Identity.Infrastructure.Database.Repositories;
 

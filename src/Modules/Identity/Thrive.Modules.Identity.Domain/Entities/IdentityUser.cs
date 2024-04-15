@@ -23,11 +23,11 @@ public sealed class IdentityUser : AggregateRoot<Guid>
         Password = password;
     }
 
-    public void ToggleActivation(bool value)
+    public void ToggleActivationStatus(bool value)
     {
         if (value == IsActive)
         {
-            throw IsActive ? DomainExceptions.UserActiveException() : DomainExceptions.UserInactiveException();
+            throw IsActive ? new UserActiveException() : new UserInactiveException();
         }
 
         IsActive = value;

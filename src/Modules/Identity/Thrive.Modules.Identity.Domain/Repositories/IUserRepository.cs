@@ -8,6 +8,6 @@ public interface IUserRepository
     Task<IdentityUser?> GetWithRefreshTokensAsync(Guid id, CancellationToken cancellationToken = default);
     Task<IdentityUser> CreateAsync(IdentityUser identityUser, CancellationToken cancellationToken = default);
     Task UpdateAsync(CancellationToken cancellationToken = default);
-    Task<bool> IsEmailUniqueAsync(string email, CancellationToken cancellationToken = default);
-    Task<bool> IsUsernameUniqueAsync(string username, CancellationToken cancellationToken = default);
+    Task<(bool isEmailUnique, bool isUsernameUnique)> IsUnique(string email, string username,
+        CancellationToken cancellationToken = default);
 }
