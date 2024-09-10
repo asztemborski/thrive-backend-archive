@@ -54,6 +54,7 @@ public static class Extensions
 
         services.AddMemoryCache();
         services.AddScoped<IRequestStorage, RequestStorage>();
+        services.AddHttpContextAccessor();
 
         services.AddCors(options => options.AddPolicy("ThriveCorsPolicy", builder =>
         {

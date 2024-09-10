@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Thrive.Modules.Identity.Application.Contracts;
 using Thrive.Modules.Identity.Domain.Repositories;
 using Thrive.Modules.Identity.Infrastructure.Database;
@@ -20,11 +21,18 @@ public static class Extensions
         services.ConfigureOptions<EmailOptionsSetup>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer();
+            .AddJwtBearer(options =>
+            {
+                var bearerOptions = services.BuildServiceProvider()
+                    .GetRequiredService<IOptions<JwtBearerOptions>>().Value;
+                
+                options.TokenValidationParameters = bearerOptions.TokenValidationParameters;
+            });
 
         services.AddPostgres<IdentityContext>();
         services.AddScoped<ITokensProvider, TokensProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IEmailConfirmTokenRepository, EmailConfirmTokenRepository>();
         services.AddScoped<IValueHasher, ValueHasher>();
 

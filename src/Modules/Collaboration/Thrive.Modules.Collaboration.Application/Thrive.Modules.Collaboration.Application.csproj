@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Thrive.Shared.Application\Thrive.Shared.Application.csproj" />
+      <ProjectReference Include="..\..\Identity\Thrive.Modules.Identity.Shared\Thrive.Modules.Identity.Shared.csproj" />
+      <ProjectReference Include="..\Thrive.Modules.Collaboration.Domain\Thrive.Modules.Collaboration.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

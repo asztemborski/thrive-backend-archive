@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Options;
 using Moq;
-using Thrive.Modules.Identity.Application.Commands.SignUpCommand;
+using Thrive.Modules.Identity.Application.Commands.SignUp;
 using Thrive.Modules.Identity.Application.Contracts;
 using Thrive.Modules.Identity.Application.Exceptions;
 using Thrive.Modules.Identity.Application.Options;

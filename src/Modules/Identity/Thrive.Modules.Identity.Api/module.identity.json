@@ -10,7 +10,7 @@
       "ValidateIssuerSigningKey": true,
       "ValidateIssuer": false,
       "ValidateAudience": false,
-      "ValidateLifetime": false
+      "ValidateLifetime": true
     },
     "EmailOptions": {
       "EmailConfirmationTokenExpirationTime": 15,

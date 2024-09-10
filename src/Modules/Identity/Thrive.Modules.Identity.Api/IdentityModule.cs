@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Thrive.Modules.Identity.Application;
 using Thrive.Modules.Identity.Infrastructure;
 using Thrive.Modules.Identity.Shared;
 using Thrive.Shared.Abstractions.Modules;
@@ -12,7 +13,7 @@ internal sealed class IdentityModule : IModule
 
     public void Add(IServiceCollection services)
     {
-        services.AddTransient<IIdentityModuleApi, IdentityModuleApi>();
+        services.AddApplication();
         services.AddInfrastructure();
     }
 

@@ -8,9 +8,7 @@ public sealed class UserEmail
     public Email Address { get; private set; } = null!;
     public bool IsConfirmed { get; private set; }
 
-    private UserEmail()
-    {
-    }
+    private UserEmail() { }
 
     public UserEmail(Email address)
     {

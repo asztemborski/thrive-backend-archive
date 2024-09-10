@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Modules\Collaboration\Thrive.Modules.Collaboration.Api\Thrive.Modules.Collaboration.Api.csproj" />
         <ProjectReference Include="..\..\Modules\Identity\Thrive.Modules.Identity.Api\Thrive.Modules.Identity.Api.csproj"/>
         <ProjectReference Include="..\..\Modules\Notifications\Thrive.Modules.Notifications.Api\Thrive.Modules.Notifications.Api.csproj"/>
         <ProjectReference Include="..\..\Shared\Thrive.Shared.Infrastructure\Thrive.Shared.Infrastructure.csproj"/>

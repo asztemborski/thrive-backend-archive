@@ -39,8 +39,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Modules.Notification
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Modules.Notifications.Api", "src\Modules\Notifications\Thrive.Modules.Notifications.Api\Thrive.Modules.Notifications.Api.csproj", "{16B1CAA6-0E51-4034-BE39-48E1F6EA9F22}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{C131B5F6-B434-424D-A1E1-DE3D106FA48E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{058D0465-226F-4751-94BA-98223F0665F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{339472BD-28D6-4580-A711-AF6439551CB1}"
@@ -48,6 +46,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{87A54A37-75A1-4A39-8DEB-06294FE41F6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Identity.Application.UnitTests", "tests\Modules\Identity\Thrive.Identity.Application.UnitTests\Thrive.Identity.Application.UnitTests.csproj", "{3D761D9B-CD9D-45AA-9E5B-9C357BD49E8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collaboration", "Collaboration", "{993D56CC-E9A5-4482-8FFC-A2A764CA033C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Modules.Collaboration.Domain", "src\Modules\Collaboration\Thrive.Modules.Collaboration.Domain\Thrive.Modules.Collaboration.Domain.csproj", "{CF237DDD-3242-47D2-B52A-3A266E29AAAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Modules.Collaboration.Infrastructure", "src\Modules\Collaboration\Thrive.Modules.Collaboration.Infrastructure\Thrive.Modules.Collaboration.Infrastructure.csproj", "{11936CF5-063C-4C0F-9023-46B57CFE9544}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Modules.Collaboration.Application", "src\Modules\Collaboration\Thrive.Modules.Collaboration.Application\Thrive.Modules.Collaboration.Application.csproj", "{7416385C-D0AB-43FB-9E58-049A661C426A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Modules.Collaboration.Api", "src\Modules\Collaboration\Thrive.Modules.Collaboration.Api\Thrive.Modules.Collaboration.Api.csproj", "{850F2A4F-53B4-4785-9ACF-915C6711AD09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +79,14 @@ Global
 		{B461D572-8D0A-4ECF-B51A-DCBE33F3C695} = {436FCFF2-5FF6-467E-A59A-1D5CBBC6E9F6}
 		{16B1CAA6-0E51-4034-BE39-48E1F6EA9F22} = {B4FD1C28-FE29-4D07-8ABC-1A6D1926A532}
 		{3D00D3A3-A9E5-456F-B244-E14B333DC692} = {B4FD1C28-FE29-4D07-8ABC-1A6D1926A532}
-		{C131B5F6-B434-424D-A1E1-DE3D106FA48E} = {302E998B-C2F1-4648-8C36-6F8A125DA35B}
 		{339472BD-28D6-4580-A711-AF6439551CB1} = {058D0465-226F-4751-94BA-98223F0665F4}
 		{87A54A37-75A1-4A39-8DEB-06294FE41F6E} = {339472BD-28D6-4580-A711-AF6439551CB1}
 		{3D761D9B-CD9D-45AA-9E5B-9C357BD49E8B} = {87A54A37-75A1-4A39-8DEB-06294FE41F6E}
+		{993D56CC-E9A5-4482-8FFC-A2A764CA033C} = {302E998B-C2F1-4648-8C36-6F8A125DA35B}
+		{CF237DDD-3242-47D2-B52A-3A266E29AAAD} = {993D56CC-E9A5-4482-8FFC-A2A764CA033C}
+		{11936CF5-063C-4C0F-9023-46B57CFE9544} = {993D56CC-E9A5-4482-8FFC-A2A764CA033C}
+		{7416385C-D0AB-43FB-9E58-049A661C426A} = {993D56CC-E9A5-4482-8FFC-A2A764CA033C}
+		{850F2A4F-53B4-4785-9ACF-915C6711AD09} = {993D56CC-E9A5-4482-8FFC-A2A764CA033C}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFE792AB-6893-427D-9961-23A60B96E528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -125,5 +137,21 @@ Global
 		{3D761D9B-CD9D-45AA-9E5B-9C357BD49E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D761D9B-CD9D-45AA-9E5B-9C357BD49E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D761D9B-CD9D-45AA-9E5B-9C357BD49E8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF237DDD-3242-47D2-B52A-3A266E29AAAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF237DDD-3242-47D2-B52A-3A266E29AAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF237DDD-3242-47D2-B52A-3A266E29AAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF237DDD-3242-47D2-B52A-3A266E29AAAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11936CF5-063C-4C0F-9023-46B57CFE9544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11936CF5-063C-4C0F-9023-46B57CFE9544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11936CF5-063C-4C0F-9023-46B57CFE9544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11936CF5-063C-4C0F-9023-46B57CFE9544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7416385C-D0AB-43FB-9E58-049A661C426A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7416385C-D0AB-43FB-9E58-049A661C426A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7416385C-D0AB-43FB-9E58-049A661C426A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7416385C-D0AB-43FB-9E58-049A661C426A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{850F2A4F-53B4-4785-9ACF-915C6711AD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{850F2A4F-53B4-4785-9ACF-915C6711AD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{850F2A4F-53B4-4785-9ACF-915C6711AD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{850F2A4F-53B4-4785-9ACF-915C6711AD09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

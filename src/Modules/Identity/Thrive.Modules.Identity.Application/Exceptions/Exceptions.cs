@@ -3,16 +3,19 @@
 namespace Thrive.Modules.Identity.Application.Exceptions;
 
 internal sealed class EmailAlreadyUsedException(string email)
-    : BaseException($"Email '{email}' is already in use", "Identity.EmailInUse");
+    : BaseException($"Email '{email}' is already in use", ExceptionCodes.EmailAlreadyUsed);
 
 internal sealed class UsernameAlreadyUsedException(string username)
-    : BaseException($"Username '{username}' is already in use", "Identity.UsernameInUse");
+    : BaseException($"Username '{username}' is already in use", ExceptionCodes.UsernameAlreadyUsed);
 
 internal sealed class InvalidEmailProviderException(string emailProvider)
-    : BaseException($"'{emailProvider}' is not valid email provider.", "Identity.InvalidEmailProvider");
+    : BaseException($"'{emailProvider}' is not valid email provider.", ExceptionCodes.InvalidEmailProvider);
 
 internal sealed class InvalidEmailConfirmationToken()
-    : BaseException("Email confirmation token is invalid", "Identity.InvalidEmailConfirmationToken");
+    : BaseException("Email confirmation token is invalid", ExceptionCodes.InvalidEmailConfirmationToken);
 
 internal sealed class InvalidCredentialsException()
-    : UnauthorizedException("Invalid credentials.", "Identity.InvalidCredentials");
+    : Thrive.Shared.Abstractions.Exceptions.UnauthorizedException("Invalid credentials.", ExceptionCodes.InvalidCredentials);
+    
+internal sealed class UnauthorizedException() 
+    : Thrive.Shared.Abstractions.Exceptions.UnauthorizedException("Unauthorized.", ExceptionCodes.Unauthorized);

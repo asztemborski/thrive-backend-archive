@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Thrive.Modules.Identity.Application.Commands.RefreshTokensCommand;
-using Thrive.Modules.Identity.Application.Commands.SignInCommand;
+using Thrive.Modules.Identity.Application.Commands.RefreshTokens;
+using Thrive.Modules.Identity.Application.Commands.SignIn;
 using Thrive.Modules.Identity.Application.DTOs;
 
 namespace Thrive.Modules.Identity.Api.Controllers;
